@@ -146,6 +146,7 @@
 
 - (void)dealloc
 {
+    NSLog(@"GPUImageView dealloc --------------");
     runSynchronouslyOnVideoProcessingQueue(^{
         [self destroyDisplayFramebuffer];
     });
