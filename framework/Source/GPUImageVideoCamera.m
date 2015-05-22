@@ -310,6 +310,7 @@ NSString *const kGPUImageYUVVideoRangeConversionForLAFragmentShaderString = SHAD
 
 - (void)dealloc 
 {
+    NSLog(@"GPUImageVideoCamera dealloc ---------");
     [self stopCameraCapture];
     [videoOutput setSampleBufferDelegate:nil queue:dispatch_get_main_queue()];
     [audioOutput setSampleBufferDelegate:nil queue:dispatch_get_main_queue()];

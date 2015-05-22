@@ -57,6 +57,7 @@
 
 - (void)dealloc;
 {
+    NSLog(@"GPUImageFramebufferCache dealloc ---------");
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 #else

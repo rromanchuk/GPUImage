@@ -145,6 +145,7 @@ NSString *const kGPUImageColorSwizzlingFragmentShaderString = SHADER_STRING
 
 - (void)dealloc;
 {
+    NSLog(@"GPUImageMovieWriter dealloc -------------------------");
     [self destroyDataFBO];
 
 #if !OS_OBJECT_USE_OBJC
