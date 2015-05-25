@@ -161,17 +161,17 @@ void GPUImageCreateResizedSampleBuffer(CVPixelBufferRef cameraFrame, CGSize fina
             return;
         }
 
-        //@autoreleasepool {
+        @autoreleasepool {
             if(photoOutput.isCapturingStillImage){
                 block(nil, [NSError errorWithDomain:AVFoundationErrorDomain code:AVErrorMaximumStillImageCaptureRequestsExceeded userInfo:nil]);
                 return;
             }
 
             NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
-            UIImage *image = [[UIImage alloc] initWithData:imageData];
+            UIImage *image = [UIImage imageWithData:imageData];
             block(image, nil);
 
-        //}
+        }
     }];
 }
 
