@@ -271,6 +271,22 @@ void GPUImageCreateResizedSampleBuffer(CVPixelBufferRef cameraFrame, CGSize fina
 
 #pragma mark - Private Methods
 
+- (void)simpleCapture:(void (^)(UIImage *processedImage, NSError *error))block {
+    [photoOutput captureStillImageAsynchronouslyFromConnection:[[photoOutput connections] objectAtIndex:0]  completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error) {
+        @autoreleasepool {
+            if(photoOutput.isCapturingStillImage){
+                block(nil, [NSError errorWithDomain:AVFoundationErrorDomain code:AVErrorMaximumStillImageCaptureRequestsExceeded userInfo:nil]);
+                return;
+            }
+
+            NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
+            UIImage *image = [[UIImage alloc] initWithData:imageData];
+            block(image, nil);
+
+        }
+    }];
+}
+
 - (void)capturePhotoProcessedUpToFilter:(GPUImageOutput<GPUImageInput> *)finalFilterInChain withImageOnGPUHandler:(void (^)(NSError *error))block
 {
     dispatch_semaphore_wait(frameRenderingSemaphore, DISPATCH_TIME_FOREVER);
